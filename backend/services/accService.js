@@ -955,23 +955,23 @@ class ACCService {
           try {
             const createItemResponse = await axios.post(
               `${process.env.ACC_API_BASE_URL}/data/v1/projects/${projectId}/items`,
-              {
-                jsonapi: { version: "1.0" },
-                data: {
-                  type: "items",
-                  attributes: {
-                    displayName: filename,
-                    extension: {
-                      type: "items:autodesk.core:File",
-                      version: "1.0"
-                    }
-                  },
-                  relationships: {
-                    tip: {
-                      data: {
-                        type: "versions",
-                        id: "1"
-                      }
+          {
+            jsonapi: { version: "1.0" },
+            data: {
+              type: "items",
+              attributes: {
+                displayName: filename,
+                extension: {
+                  type: "items:autodesk.core:File",
+                  version: "1.0"
+                }
+              },
+              relationships: {
+                tip: {
+                  data: {
+                    type: "versions",
+                    id: "1"
+                  }
                     },
                     parent: {
                       data: {
@@ -1002,10 +1002,10 @@ class ACCService {
                     }
                   }
                 ]
-              },
-              {
-                headers: {
-                  'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
+          },
+          {
+            headers: {
+              'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
                   'Content-Type': 'application/vnd.api+json',
                   'Accept': 'application/vnd.api+json',
                   ...(userId && { 'x-user-id': userId })
@@ -1023,7 +1023,7 @@ class ACCService {
 
             return {
               success: true,
-              data: {
+            data: {
                 itemId: itemId,
                 versionId: versionId,
                 storageId: storageId,
@@ -1177,10 +1177,10 @@ class ACCService {
                         folder_id: rootFolderId,
                         file_size: fileBuffer.length,
                         mime_type: 'application/octet-stream'
-                      },
-                      {
-                        headers: {
-                          'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
+          },
+          {
+            headers: {
+              'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
                           'Content-Type': 'application/json',
                           ...(userId && { 'x-user-id': userId })
                         }
@@ -1219,46 +1219,46 @@ class ACCService {
                           file_size: fileBuffer.length,
                           mime_type: 'application/octet-stream'
                         },
-                        {
-                          headers: {
-                            'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${tokenResult.newTokens.accessToken}`,
                             'Content-Type': 'application/json',
                             ...(userId && { 'x-user-id': userId })
-                          }
-                        }
-                      );
+            }
+          }
+        );
 
                       const accBuildV2Data = accBuildV2Response.data;
                       console.log('Item created successfully via ACC Build v2 API');
-                      
-                      return {
-                        success: true,
-                        data: {
+
+        return {
+          success: true,
+          data: {
                           itemId: accBuildV2Data.id || 'acc-build-v2-item-created',
                           versionId: 'acc-build-v2-version-1',
                           storageId: storageId,
-                          filename: filename,
+            filename: filename,
                           message: 'File uploaded successfully to ACC using Data Management API v1 + ACC Build v2 API fallback'
-                        },
-                        tokensRefreshed: tokenResult.tokensRefreshed,
-                        newTokens: tokenResult.newTokens
-                      };
+          },
+          tokensRefreshed: tokenResult.tokensRefreshed,
+          newTokens: tokenResult.newTokens
+        };
 
                     } catch (accBuildV2Error) {
                       console.error('ACC Build v2 API also failed:', accBuildV2Error.response?.status, accBuildV2Error.message);
                       
                       // Last resort: return success with storage info since file was uploaded
-                      return {
-                        success: true,
-                        data: {
+        return {
+          success: true,
+          data: {
                           itemId: 'storage-only',
                           versionId: 'storage-only',
                           storageId: storageId,
-                          filename: filename,
+            filename: filename,
                           message: 'File uploaded to storage successfully, but item creation failed. File may be accessible via storage ID.',
                           warning: true
-                        },
-                        tokensRefreshed: tokenResult.tokensRefreshed,
+          },
+          tokensRefreshed: tokenResult.tokensRefreshed,
                         newTokens: tokenResult.newTokens
                       };
                     }
@@ -1298,8 +1298,8 @@ class ACCService {
                       apiError.config?.url?.includes('s3-accelerate.amazonaws.com') ? 'S3 upload' : 
                       apiError.config?.url?.includes('/signeds3upload') && apiError.config?.method === 'post' ? 'upload completion' : 
                       apiError.config?.url?.includes('/items') ? 'item creation' : 'unknown step'}: ${apiError.response?.data?.message || apiError.message}`
-          };
-        }
+        };
+      }
     } catch (error) {
       console.error('ACC uploadFile error:', {
         status: error.response?.status,

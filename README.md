@@ -2,11 +2,34 @@
 
 A full-stack single-page application that lets users create workflows connecting Autodesk Construction Cloud (ACC) to Gmail or Google Calendar. The app supports OAuth2 authentication for all services, file uploads to ACC, and automated email/calendar event creation.
 
+## 🚨 Current Status & Known Issues
+
+### ✅ What's Working
+- **User Authentication**: JWT-based login/registration system
+- **OAuth2 Integration**: ACC, Gmail, and Google Calendar OAuth flows
+- **Database**: MongoDB connection and models (User, Connector, Workflow, WorkflowExecution)
+- **Basic API Structure**: RESTful API endpoints for all major functions
+- **Frontend Routing**: React Router with protected routes
+- **Token Management**: Automatic token refresh for all services
+- **Workflow Builder UI**: React Flow-based visual workflow designer
+
+### ❌ What's NOT Working
+- **ACC File Upload**: Currently fails due to API permission issues and complex ACC Data Management API requirements
+- **Workflow Execution**: Workflows can be created but execution fails due to ACC upload issues
+- **ACC Project/Folder Access**: Limited access to ACC projects due to API scope restrictions
+- **Real-time Workflow Triggers**: No automatic workflow execution on file uploads
+
+### 🔧 Known Issues
+1. **ACC API Permissions**: The app requires elevated ACC API permissions that are not available in trial accounts
+2. **File Upload Complexity**: ACC file upload requires multiple API calls and specific project/folder permissions
+3. **Workflow Engine**: While the engine is implemented, it depends on successful ACC operations
+4. **OAuth Scopes**: Some ACC operations require additional OAuth scopes not available in basic apps
+
 ## Features
 
 - **OAuth2 Authentication**: Secure authentication with ACC, Gmail, and Google Calendar
 - **Workflow Builder**: Visual workflow designer using React Flow
-- **ACC Integration**: File uploads to ACC projects and folders
+- **ACC Integration**: File uploads to ACC projects and folders (currently limited)
 - **Gmail Integration**: Automated email sending with dynamic content
 - **Google Calendar Integration**: Automated calendar event creation
 - **MongoDB Storage**: Persistent storage of connectors and workflows
@@ -77,9 +100,6 @@ GOOGLE_REDIRECT_URI=http://localhost:5001/auth/google/callback
 
 # Logging Configuration
 LOG_LEVEL=info
-
-# Simulation Mode (set to false for production)
-SIMULATE_ACC=true
 ```
 
 ### Frontend (.env)
@@ -138,7 +158,8 @@ docker-compose up -d mongodb
 cd backend
 
 # Run the setup script (macOS/Linux)
-npm run setup-db
+chmod +x setup-db.sh
+./setup-db.sh
 
 # Or run the Windows batch file
 npm run setup-db
@@ -168,6 +189,8 @@ npm run init-db
 3. Add scopes: `data:read`, `data:write`, `data:create`, `bucket:read`, `bucket:create`
 4. Set redirect URI to: `http://localhost:5001/auth/acc/callback`
 5. Copy Client ID and Client Secret to your `.env` file
+
+**⚠️ Important**: ACC trial accounts have limited API access. For full functionality, you need a paid ACC account with elevated API permissions.
 
 ### 4. Start the Application
 
@@ -206,7 +229,7 @@ The application will be available at:
 - `GET /api/acc/accounts` - Get ACC accounts
 - `GET /api/acc/accounts/:id/projects` - Get projects for account
 - `GET /api/acc/projects/:id/folders` - Get folders for project
-- `POST /api/acc/upload` - Upload file to ACC
+- `POST /api/acc/upload` - Upload file to ACC (currently limited)
 - `GET /api/acc/files/:id` - Get file information
 
 ### Workflows
@@ -214,7 +237,7 @@ The application will be available at:
 - `POST /api/workflows` - Create new workflow
 - `PUT /api/workflows/:id` - Update workflow
 - `DELETE /api/workflows/:id` - Delete workflow
-- `POST /api/workflows/:id/execute` - Execute workflow
+- `POST /api/workflows/:id/execute` - Execute workflow (currently limited)
 
 ## Testing
 
@@ -269,27 +292,26 @@ curl -v -X POST "https://developer.api.autodesk.com/authentication/v2/token" \
    - Show connectors page with all services connected
 
 3. **Test Individual Services** (1m)
-   - Upload a file to ACC (show project/folder selection)
+   - Show ACC project/folder access (limited)
    - Send a test email via Gmail
    - Create a test calendar event
-   - Show successful results for each operation
+   - Show successful results for Gmail and Calendar operations
 
 4. **Create & Execute Workflow** (30s)
    - Open workflow builder
    - Create a simple workflow: ACC Trigger → Gmail Action
    - Configure the workflow (project, folder, email details)
-   - Save and execute the workflow
-   - Show the complete flow from upload to email
+   - Save the workflow
+   - **Note**: Execution will fail due to ACC upload limitations
 
 ## Development Notes
 
-### Simulation Mode
+### Current Limitations
 
-The application includes a simulation mode for ACC operations (controlled by `SIMULATE_ACC=true`). This allows testing without real ACC credentials. To use real ACC operations:
-
-1. Set `SIMULATE_ACC=false` in your `.env`
-2. Implement real ACC Data Management API calls in `accService.js`
-3. Replace simulated responses with actual API calls
+1. **ACC API Access**: Trial accounts have limited API access
+2. **File Upload**: Complex ACC Data Management API requirements
+3. **Workflow Execution**: Depends on successful ACC operations
+4. **OAuth Scopes**: Additional scopes needed for full ACC functionality
 
 ### Token Management
 
@@ -321,11 +343,34 @@ The application includes comprehensive error handling:
 
 4. **ACC API Errors**
    - Verify ACC app has correct scopes
-   - Check that `SIMULATE_ACC` is set appropriately
+   - Check that you have a paid ACC account with elevated permissions
+   - ACC trial accounts have limited API access
+
+5. **File Upload Failures**
+   - ACC file upload requires specific project/folder permissions
+   - The Data Management API has complex requirements
+   - Consider using ACC Build API as an alternative
 
 ### Logs
 
 Check the console output for detailed error messages and API responses. The application logs all network errors with status codes and response data.
+
+## Future Improvements
+
+### High Priority
+1. **ACC API Permissions**: Obtain elevated API permissions for full functionality
+2. **File Upload**: Implement robust ACC file upload with proper error handling
+3. **Workflow Execution**: Fix workflow execution engine for real ACC operations
+
+### Medium Priority
+1. **Real-time Triggers**: Implement webhook-based workflow triggers
+2. **Error Recovery**: Add retry mechanisms for failed operations
+3. **Monitoring**: Add workflow execution monitoring and alerting
+
+### Low Priority
+1. **UI Improvements**: Enhanced workflow builder with more node types
+2. **Templates**: Pre-built workflow templates for common use cases
+3. **Analytics**: Workflow execution analytics and reporting
 
 ## License
 
@@ -338,3 +383,12 @@ For issues and questions:
 2. Review the API documentation
 3. Check the console logs for error details
 4. Ensure all environment variables are properly set
+5. **For ACC issues**: Consider upgrading to a paid ACC account with elevated API permissions
+
+## Contributing
+
+This project is currently in development with several known limitations. Contributions are welcome, especially for:
+- ACC API integration improvements
+- Workflow execution engine fixes
+- Error handling and recovery mechanisms
+- UI/UX improvements
