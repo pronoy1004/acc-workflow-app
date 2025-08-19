@@ -1,0 +1,13 @@
+{
+  "name": "acc-workflow-app",
+  "version": "1.0.0",
+  "description": "A full-stack web application that allows users to create workflows for integrating Autodesk Construction Cloud (ACC) with Gmail and Google Calendar. The application enables uploading files to ACC and then triggering automated email notifications or calendar events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

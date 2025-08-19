@@ -1,0 +1,120 @@
+.calendar-action-node {
+  background: white;
+  border: 2px solid #4285f4;
+  border-radius: 8px;
+  padding: 15px;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.1);
+}
+
+.node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.node-header h4 {
+  margin: 0;
+  color: #4285f4;
+  font-size: 16px;
+}
+
+.node-type {
+  background: #4285f4;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.node-content {
+  margin-bottom: 15px;
+}
+
+.config-section {
+  margin-bottom: 12px;
+}
+
+.config-section label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.config-section input,
+.config-section textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.config-section textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.config-section input:focus,
+.config-section textarea:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.25);
+}
+
+.datetime-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.action-info {
+  background: #f8f9fa;
+  border-left: 3px solid #4285f4;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.action-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.action-info strong {
+  color: #4285f4;
+}
+
+.handle {
+  width: 12px;
+  height: 12px;
+  background: #4285f4;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+  cursor: crosshair;
+}
+
+.handle.target {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.handle.source {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.handle:hover {
+  background: #3367d6;
+  transform: translateX(-50%) scale(1.2);
+}

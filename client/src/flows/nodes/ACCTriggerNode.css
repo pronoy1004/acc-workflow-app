@@ -1,0 +1,340 @@
+/* Modern ACC Trigger Node Design */
+.acc-trigger-node {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  min-width: 200px;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid transparent;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.acc-trigger-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.acc-trigger-node:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.acc-trigger-node.selected {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.node-header h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.node-type {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.node-content {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trigger-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trigger-info p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.trigger-info p:last-child {
+  margin-bottom: 0;
+}
+
+.trigger-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.trigger-icon::before {
+  content: '🚀';
+  font-size: 1.2rem;
+}
+
+.config-section {
+  margin-bottom: 1rem;
+}
+
+.config-section:last-child {
+  margin-bottom: 0;
+}
+
+.config-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.config-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.config-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.config-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.config-input:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.action-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-top: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-info p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.action-info p:last-child {
+  margin-bottom: 0;
+}
+
+.action-info strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+/* Handle Styling */
+.acc-trigger-node .react-flow__handle {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border: 2px solid #667eea;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.acc-trigger-node .react-flow__handle:hover {
+  transform: scale(1.2);
+  box-shadow: var(--shadow-md);
+}
+
+.acc-trigger-node .react-flow__handle.react-flow__handle-bottom {
+  bottom: -6px;
+}
+
+/* Status Indicators */
+.node-status {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.node-status.inactive {
+  background: #6b7280;
+  animation: none;
+}
+
+.node-status.error {
+  background: #ef4444;
+  animation: pulse 1s infinite;
+}
+
+/* Configuration Toggle */
+.config-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  backdrop-filter: blur(10px);
+}
+
+.config-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.config-toggle.active {
+  background: rgba(255, 255, 255, 0.4);
+  transform: rotate(180deg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .acc-trigger-node {
+    min-width: 180px;
+    padding: 1rem;
+  }
+  
+  .node-header h4 {
+    font-size: 1rem;
+  }
+  
+  .config-input {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Animation for node appearance */
+.acc-trigger-node {
+  animation: nodeAppear 0.5s ease-out;
+}
+
+@keyframes nodeAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Enhanced focus states */
+.config-input:focus + .config-label {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Success state for completed fields */
+.config-section.completed .config-input {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.config-section.completed .config-label::before {
+  content: '✓';
+  color: #10b981;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+/* Error state for invalid fields */
+.config-section.error .config-input {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.config-section.error .config-label::before {
+  content: '⚠';
+  color: #ef4444;
+  margin-right: 0.5rem;
+}
+
+/* Loading state */
+.config-section.loading .config-input {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.config-section.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}

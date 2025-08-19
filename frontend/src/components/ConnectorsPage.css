@@ -1,0 +1,121 @@
+.connectors-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.connector-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.connect-btn {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.acc-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.acc-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.gmail-btn {
+  background-color: #ea4335;
+  color: white;
+}
+
+.gmail-btn:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.calendar-btn {
+  background-color: #4285f4;
+  color: white;
+}
+
+.calendar-btn:hover {
+  background-color: #3367d6;
+  transform: translateY(-2px);
+}
+
+.connectors-list {
+  margin-top: 40px;
+}
+
+.connectors-list h3 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.connector-item {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.connector-info h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.connector-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.connector-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.refresh-btn {
+  background-color: #ffc107;
+  color: #212529;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.refresh-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.no-connectors {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin: 40px 0;
+}
